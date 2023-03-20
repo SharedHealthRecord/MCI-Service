@@ -1,10 +1,4 @@
-FROM centos
-
-RUN cd /etc/yum.repos.d/
-RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
-RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
-
-RUN  yum install java-1.8.0-openjdk -y
+FROM azul/zulu-openjdk-centos:8-latest
 
 COPY mci-api/build/distributions/mci-*.noarch.rpm /tmp/mci.rpm
 RUN yum install -y /tmp/mci.rpm && rm -f /tmp/mci.rpm && yum clean all
